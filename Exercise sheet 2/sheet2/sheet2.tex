@@ -1,0 +1,810 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{sheet2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Exercise Sheet 2: Timing, Numpy,
+Plotting}\label{exercise-sheet-2-timing-numpy-plotting}
+
+The previous exercise sheet introduced several methods for
+classification: decision trees, nearest neighbors, and nearest means. Of
+those, the one that could learn from the data, and that also offered
+enough complexity to produce an accurate decision function was k-nearest
+neighbors. However, nearest neighbors can be slow when implemented in
+pure Python (i.e. with loops). This is especially the case when the
+number of data points or input dimensions is large.
+
+In this exercise sheet, we will speed up nearest neighbors by utilizing
+\texttt{numpy} and \texttt{scipy} packages. Your task will be to replace
+list-based operations by vector-based operations between numpy arrays.
+The speed and correctness of the implementations will then be tested. In
+particular, performance graphs will be drawn using the library
+\texttt{matplotlib}.
+
+    \subsection{Python Nearest Neighbor}\label{python-nearest-neighbor}
+
+The most basic element of computation of nearest neighbors is its
+distance function relating two arbitrary data points \texttt{x1} and
+\texttt{x2}. We assume that these points are iterable (i.e. we can use a
+loop over their dimensions). One way among others to compute the square
+Euclidean distance between two points is by computing the sum of the
+component-wise distances
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k}{def} \PY{n+nf}{pydistance}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n+nb}{sum}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{x1d}\PY{o}{\PYZhy{}}\PY{n}{x2d}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{k}{for} \PY{n}{x1d}\PY{p}{,}\PY{n}{x2d} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    where the prefix "\texttt{py-}" of the function indicates that the
+latter makes use of \texttt{Python} instead of \texttt{numpy}. Once the
+distance matrix has been implemented, the nearest neighbor for a given
+unlabeled point \texttt{u} that we would like to classify is obtained by
+iterating over all points in the training set \texttt{(X,Y)}, selecting
+the point with smallest distance to \texttt{u}, and returning its
+corresponding label. Here \texttt{X} denotes the list of inputs in the
+training set and \texttt{Y} denotes the list of labels.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{pynearest}\PY{p}{(}\PY{n}{u}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{distance}\PY{o}{=}\PY{n}{pydistance}\PY{p}{)}\PY{p}{:}
+            
+            \PY{n}{xbest} \PY{o}{=} \PY{k+kc}{None}
+            \PY{n}{ybest} \PY{o}{=} \PY{k+kc}{None}
+            \PY{n}{dbest} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            
+            \PY{k}{for} \PY{n}{x}\PY{p}{,}\PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{:}
+                \PY{n}{d} \PY{o}{=} \PY{n}{distance}\PY{p}{(}\PY{n}{u}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+                \PY{k}{if} \PY{n}{d} \PY{o}{\PYZlt{}} \PY{n}{dbest}\PY{p}{:}
+                    \PY{n}{ybest} \PY{o}{=} \PY{n}{y}
+                    \PY{n}{xbest} \PY{o}{=} \PY{n}{x}
+                    \PY{n}{dbest} \PY{o}{=} \PY{n}{d}
+                    
+            \PY{k}{return} \PY{n}{ybest}
+\end{Verbatim}
+
+
+    Note that this function either uses function \texttt{pydistance} (given
+as default if the argument distance is not specified). Or one could
+specify as argument a more optimized function for distance compuation,
+for example, one that uses \texttt{numpy}. Finally, one might not be
+interested in classifying a single point, but many of them. The method
+below receives a collection of such unlabeled test points stored in the
+variable \texttt{U}. The function returns a list of predictions
+associated to each test point.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{nearest}\PY{o}{=}\PY{n}{pynearest}\PY{p}{,}\PY{n}{distance}\PY{o}{=}\PY{n}{pydistance}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{p}{[}\PY{n}{nearest}\PY{p}{(}\PY{n}{u}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{distance}\PY{o}{=}\PY{n}{distance}\PY{p}{)} \PY{k}{for} \PY{n}{u} \PY{o+ow}{in} \PY{n}{U}\PY{p}{]}
+\end{Verbatim}
+
+
+    Again, such function uses by default the Python nearest neighbor search
+(with a specified distance function). However, we can also specified a
+more optimized nearest neighbor function, for example, based on
+\texttt{numpy}. Finally, one could consider an alternative function to
+\texttt{pybatch} that would use \texttt{numpy} from the beginning to the
+end. The implementation of such more optimized functions, and the
+testing of their correct behavior and higher performance will be the
+object of this exercise sheet.
+
+    \subsection{Testing and correctness}\label{testing-and-correctness}
+
+As a starting point, the code below tests the output of the nearest
+neighbor algorithm for some toy dataset with fixed parameters. In
+particular, the function \texttt{data.toy(M,N,d)} generates a problem
+with \texttt{M} unlabeled test points stored in a matrix \texttt{U} of
+size \texttt{(M\ x\ d)}, then \texttt{N} labeled training points stored
+in a matrix \texttt{X} of size \texttt{(N\ x\ d)} and the output label
+is stored in a vector \texttt{Y} of size \texttt{N} composed of zeros
+and ones encoding the two possible classes. The variable \texttt{d}
+denotes the number of dimensions of each point. The toy dataset is
+pseudo-random, that is, for fixed parameters, it produce a
+random-looking dataset, but every time the method is called with the
+same parameters, the dataset is the same. The pseudo-randomness property
+will be useful to verify that each nearest neighbor implementation
+performs the same overall computation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{import} \PY{n+nn}{data}
+        \PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{toy}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0]
+
+    \end{Verbatim}
+
+    In particular, the output of this function will help us to verify that
+the more optimized \texttt{numpy}-based versions of nearest neighbor are
+still valid.
+
+    \subsection{Plotting and performance}\label{plotting-and-performance}
+
+We now describe how to build a plot that relates a certain parameter of
+the dataset (e.g. the number of input dimensions \texttt{d} to the time
+required for the computation. We first initialize the basic plotting
+environment.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{set\PYZus{}matplotlib\PYZus{}formats}
+        \PY{n}{set\PYZus{}matplotlib\PYZus{}formats}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{savefig.dpi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{90}
+\end{Verbatim}
+
+
+    The command "\texttt{\%matplotlib\ inline}" tells IPython notebook that
+the plots should be rendered inside the notebook. The following code
+plots the computation time of predicting \texttt{100} points from the
+test set using a training set of size \texttt{100}, and where we vary
+the number of input dimensions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{import} \PY{n+nn}{time}
+        
+        \PY{c+c1}{\PYZsh{} Values for the number of dimensions d to test}
+        \PY{n}{dlist} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Measure the computation time for each choice of number of dimensions d}
+        \PY{n}{tlist} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n}{dlist}\PY{p}{:}
+            \PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{toy}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{d}\PY{p}{)}
+            \PY{n}{a} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{clock}\PY{p}{(}\PY{p}{)}
+            \PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)}
+            \PY{n}{b} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{clock}\PY{p}{(}\PY{p}{)}
+            \PY{n}{tlist} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{b}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Plot the results in a graph}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{dlist}\PY{p}{,}\PY{n}{tlist}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}\PY{n}{plt}\PY{o}{.}\PY{n}{yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The time on the vertical axis is in seconds. Note that the exact
+computation time depends on the speed of your computer. As expected, the
+computation time increases with the number of input dimensions.
+Unfortunately, for the small dataset considered here (\texttt{100}
+training and test points of \texttt{100} dimensions each), the algorithm
+already takes more than one second to execute. Thus, it is necessary for
+practical applications (e.g. the digit recognition task that we will
+consider at the end of this exercise sheet) to accelerate this nearest
+neighbor algorithm.
+
+    \subsection{Accelerating the distance computation (25
+P)}\label{accelerating-the-distance-computation-25-p}
+
+In this first exercise, we would like to accelerate the function that
+compute pairwise distances.
+
+\begin{itemize}
+\item
+  Create a new function \texttt{npdistance(x1,x2)} with the same output
+  as \texttt{pydistance(x1,x2)}, but that computes the squared Euclidean
+  distance using \texttt{numpy} operations.
+\item
+  Print its output for the same toy example with parameters
+  \texttt{M=20}, \texttt{N=100}, \texttt{d=50} considered before (i.e.
+  \texttt{data.toy(20,100,50)}). Verify that in both cases (i.e. using
+  either \texttt{npdistance} or \texttt{pydistance} in the function
+  \texttt{pybatch}) the output remains the same.
+\item
+  Create a plot similar to the one above, but where the computation time
+  required by both methods are shown in a superposed manner. Here, we
+  fix \texttt{M=100}, \texttt{N=100}, and we let \texttt{d} vary from
+  \texttt{1} to \texttt{1000}, taking the list of values
+  \texttt{{[}1,\ 2,\ 5,\ 10,\ 20,\ 50,\ 100,\ 200,\ 500,\ 1000{]}}.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{import} \PY{n+nn}{numpy}
+        \PY{k}{def} \PY{n+nf}{npdistance}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{x2}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{numpy}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{numpy}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{numpy}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x2}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{toy}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{p}{(}\PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{nearest}\PY{o}{=}\PY{n}{pynearest}\PY{p}{,}\PY{n}{distance}\PY{o}{=}\PY{n}{pydistance}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{p}{(}\PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{nearest}\PY{o}{=}\PY{n}{pynearest}\PY{p}{,}\PY{n}{distance}\PY{o}{=}\PY{n}{npdistance}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pybatch+pynearest+pydistance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{nearest}\PY{o}{=}\PY{n}{pynearest}\PY{p}{,}\PY{n}{distance}\PY{o}{=}\PY{n}{pydistance}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pybatch+pynearest+npdistance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{nearest}\PY{o}{=}\PY{n}{pynearest}\PY{p}{,}\PY{n}{distance}\PY{o}{=}\PY{n}{npdistance}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Values for the number of dimensions d to test}
+        \PY{n}{dlist} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Measure the computation time for each choice of number of dimensions d}
+        \PY{n}{tlist\PYZus{}py} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{tlist\PYZus{}np} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n}{dlist}\PY{p}{:}
+            \PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{toy}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{d}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}Python}
+            \PY{n}{a\PYZus{}py} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{clock}\PY{p}{(}\PY{p}{)}
+            \PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{nearest}\PY{o}{=}\PY{n}{pynearest}\PY{p}{,}\PY{n}{distance}\PY{o}{=}\PY{n}{pydistance}\PY{p}{)}
+            \PY{n}{b\PYZus{}py} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{clock}\PY{p}{(}\PY{p}{)}
+            \PY{n}{tlist\PYZus{}py} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{b\PYZus{}py}\PY{o}{\PYZhy{}}\PY{n}{a\PYZus{}py}\PY{p}{]}
+            \PY{c+c1}{\PYZsh{}numpy}
+            \PY{n}{a\PYZus{}np} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{clock}\PY{p}{(}\PY{p}{)}
+            \PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{nearest}\PY{o}{=}\PY{n}{pynearest}\PY{p}{,}\PY{n}{distance}\PY{o}{=}\PY{n}{npdistance}\PY{p}{)} 
+            \PY{n}{b\PYZus{}np} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{clock}\PY{p}{(}\PY{p}{)}
+            \PY{n}{tlist\PYZus{}np} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{b\PYZus{}np}\PY{o}{\PYZhy{}}\PY{n}{a\PYZus{}np}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Plot the results in a graph}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{dlist}\PY{p}{,}\PY{n}{tlist\PYZus{}py}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pybatch+pynearest+pydistance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{dlist}\PY{p}{,}\PY{n}{tlist\PYZus{}np}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pybatch+pynearest+npdistance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{p}{;}\PY{n}{plt}\PY{o}{.}\PY{n}{xscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}\PY{n}{plt}\PY{o}{.}\PY{n}{yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+pybatch+pynearest+pydistance [1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0]
+pybatch+pynearest+npdistance [1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\tightlist
+\item
+  Based on your results, explain what kind of speedup \texttt{numpy}
+  provides, and in what regime do you expect the speedup to be the most
+  important.
+\end{itemize}
+From the graph we can see that computational time of pure Python increases exponentially with d and using numpy the time is still almost the same even with increasing d.
+The speedup needs to be in the regime of distance function.
+    \subsection{Accelerating the nearest neighbor search (25
+P)}\label{accelerating-the-nearest-neighbor-search-25-p}
+
+Motivated by the success of the \texttt{numpy} optimized distance
+computation, we would like further accelerate the code by performing
+nearest neighbor search directly in \texttt{numpy}.
+
+\begin{itemize}
+\item
+  Create a new function \texttt{npnearest(u,X,Y)} as an alternative to
+  the function \texttt{pynearest(u,X,Y,distance=npdistance)} that we
+  have used in the previous exercise.
+\item
+  Print its output for the same toy example as before (i.e.
+  \texttt{data.toy(20,100,50)}). Verify that the output remains the same
+  compared to the implementation of the previous exercise.
+\item
+  Create a plot similar to the one above, where the new method is
+  compared to the previous one. Here, we fix \texttt{M=100},
+  \texttt{d=100}, and we let \texttt{N} take different values
+  \texttt{{[}1,\ 2,\ 5,\ 10,\ 20,\ 50,\ 100,\ 200,\ 500,\ 1000{]}}.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{toy}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n}{nlist} \PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{]}
+        
+        \PY{k}{def} \PY{n+nf}{npnearest}\PY{p}{(}\PY{n}{u}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{distance}\PY{o}{=}\PY{n}{npdistance}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{Y}\PY{p}{[}\PY{n}{numpy}\PY{o}{.}\PY{n}{argmin}\PY{p}{(}\PY{n}{numpy}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{u}\PY{o}{\PYZhy{}}\PY{n}{X}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+            
+        \PY{n+nb}{print}\PY{p}{(}\PY{p}{(}\PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{nearest}\PY{o}{=}\PY{n}{pynearest}\PY{p}{,}\PY{n}{distance}\PY{o}{=}\PY{n}{npdistance}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{p}{(}\PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{nearest}\PY{o}{=}\PY{n}{npnearest}\PY{p}{,}\PY{n}{distance}\PY{o}{=}\PY{n}{npdistance}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pybatch+pynearest+npdistance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{nearest}\PY{o}{=}\PY{n}{pynearest}\PY{p}{,}\PY{n}{distance}\PY{o}{=}\PY{n}{npdistance}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pybatch+npnearest           }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{nearest}\PY{o}{=}\PY{n}{npnearest}\PY{p}{,}\PY{n}{distance}\PY{o}{=}\PY{n}{npdistance}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Measure the computation time for each choice of number of dimensions d}
+        \PY{n}{tlist\PYZus{}py} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{tlist\PYZus{}np} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{nlist}\PY{p}{:}
+            \PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{toy}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}Python}
+            \PY{n}{a\PYZus{}py} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{clock}\PY{p}{(}\PY{p}{)}
+            \PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{pynearest}\PY{p}{,}\PY{n}{npdistance}\PY{p}{)}
+            \PY{n}{b\PYZus{}py} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{clock}\PY{p}{(}\PY{p}{)}
+            \PY{n}{tlist\PYZus{}py} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{b\PYZus{}py}\PY{o}{\PYZhy{}}\PY{n}{a\PYZus{}py}\PY{p}{]}
+            \PY{c+c1}{\PYZsh{}numpy}
+            \PY{n}{a\PYZus{}np} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{clock}\PY{p}{(}\PY{p}{)}
+            \PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{nearest}\PY{o}{=}\PY{n}{npnearest}\PY{p}{)} 
+            \PY{n}{b\PYZus{}np} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{clock}\PY{p}{(}\PY{p}{)}
+            \PY{n}{tlist\PYZus{}np} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{b\PYZus{}np}\PY{o}{\PYZhy{}}\PY{n}{a\PYZus{}np}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Plot the results in a graph}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{nlist}\PY{p}{,}\PY{n}{tlist\PYZus{}py}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pybatch+pynearest+npdistance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{nlist}\PY{p}{,}\PY{n}{tlist\PYZus{}np}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pybatch+npnearest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{p}{;}\PY{n}{plt}\PY{o}{.}\PY{n}{xscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}\PY{n}{plt}\PY{o}{.}\PY{n}{yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+pybatch+pynearest+npdistance [1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0]
+pybatch+npnearest            [1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\tightlist
+\item
+  Based on your results, explain what kind of speedup this further
+  optimization provides, and in what regime the speedup is the most
+  significant.
+\end{itemize}
+We can see that nearest neighbour implemented purely in python(using npdistance) is little bit slower with higer N training points bit the speed up is not really significant and both grows more or less lineary. 
+The speed up seems most significant for n higher than 100
+    \subsection{Accelerating the processing of multiple test points (25
+P)}\label{accelerating-the-processing-of-multiple-test-points-25-p}
+
+Not yet fully happy with the performance of the algorithm, we would like
+to further optimize it by avoiding performing a loop on the test points,
+and instead, classify them all at once.
+
+\begin{itemize}
+\item
+  Create a new function \texttt{npbatch(U,X,Y)} as a replacement of the
+  implementation \texttt{pybatch(U,X,Y,nearest=npnearest)} that we have
+  built in the previous exercise.
+\item
+  Print its output for the same dataset \texttt{data.toy(20,100,50)} and
+  verify that the output remains the same as for the previous
+  implementation.
+\item
+  Create a plot comparing the computation time of the new implementation
+  compared to the previous one. Here, we fix \texttt{N=100},
+  \texttt{d=100}, and we let \texttt{M} vary from \texttt{1} to
+  \texttt{1000} with values
+  \texttt{{[}1,\ 2,\ 5,\ 10,\ 20,\ 50,\ 100,\ 200,\ 500,\ 1000{]}}.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{import} \PY{n+nn}{scipy}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{spatial}
+        
+        \PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{toy}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{)}
+        \PY{k}{def} \PY{n+nf}{npbatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{Y}\PY{p}{[}\PY{n}{numpy}\PY{o}{.}\PY{n}{argmin}\PY{p}{(}\PY{n}{scipy}\PY{o}{.}\PY{n}{spatial}\PY{o}{.}\PY{n}{distance}\PY{o}{.}\PY{n}{cdist}\PY{p}{(}\PY{n}{U}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{nearest}\PY{o}{=}\PY{n}{npnearest}\PY{p}{)} \PY{o}{==} \PY{n}{npbatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pybatch+npnearest}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{nearest}\PY{o}{=}\PY{n}{npnearest}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{npbatch          }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{npbatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)} \PY{p}{)}
+        
+        \PY{n}{mlist}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{]}
+        \PY{c+c1}{\PYZsh{} Measure the computation time for each choice of number of dimensions d}
+        \PY{n}{tlist\PYZus{}py} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{tlist\PYZus{}np} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{mlist}\PY{p}{:}
+            \PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{toy}\PY{p}{(}\PY{n}{m}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+            \PY{n}{a} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{clock}\PY{p}{(}\PY{p}{)}
+            \PY{n}{pybatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,} \PY{n}{npnearest}\PY{p}{)}
+            \PY{n}{b} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{clock}\PY{p}{(}\PY{p}{)}
+            \PY{n}{tlist\PYZus{}py} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{b}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{]}
+            
+            \PY{n}{a} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{clock}\PY{p}{(}\PY{p}{)}
+            \PY{n}{npbatch}\PY{p}{(}\PY{n}{U}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)}
+            \PY{n}{b} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{clock}\PY{p}{(}\PY{p}{)}
+            \PY{n}{tlist\PYZus{}np} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{b}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{]}
+            
+        \PY{c+c1}{\PYZsh{} Plot the results in a graph}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{mlist}\PY{p}{,}\PY{n}{tlist\PYZus{}py}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pybatch+npnearest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{mlist}\PY{p}{,}\PY{n}{tlist\PYZus{}np}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{npbatch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{p}{;}\PY{n}{plt}\PY{o}{.}\PY{n}{xscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}\PY{n}{plt}\PY{o}{.}\PY{n}{yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True]
+pybatch+npnearest [1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0]
+npbatch           [1 1 1 0 0 1 0 1 1 0 1 1 1 0 1 0 1 1 1 0]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Application to real data (25
+P)}\label{application-to-real-data-25-p}
+
+Having now implemented an efficient K-nearest neighbor classifier, we
+can test it on real problems with many data points and dimensions. We
+consider a small handwritten digits recognition dataset, that can be
+directly obtained from the library \texttt{scikit-learn}. This dataset
+consists of handwritten digits of size \texttt{8\ x\ 8} flattened into
+arrays of size \texttt{64}, with class between \texttt{0} and
+\texttt{9}. We use a function \texttt{data.digits()} to load the data
+and arrange data points in some predefined order.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{X}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{digits}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    Using the function \texttt{imshow} of \texttt{matplotlib} to visualize
+the first 100 digits of the dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{p}{(}\PY{n}{image}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{index} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{gray\PYZus{}r}\PY{p}{,} \PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\item
+  Partition the data into a "training" set and "test" set. The first one
+  contains the 1000 first digits of \texttt{X}, and the second one
+  contains the remaining ones.
+\item
+  Assume that you don't know the labels for the test data and classify
+  the test data using your efficient nearest neighbor implementation.
+\item
+  Print the predicted labels for the test set.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{train\PYZus{}data}\PY{o}{=}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1000}\PY{p}{]}
+         \PY{n}{test\PYZus{}data}\PY{o}{=}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{:}\PY{p}{]}
+         
+         \PY{n}{predicted} \PY{o}{=} \PY{n}{npbatch}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{p}{,}\PY{n}{train\PYZus{}data}\PY{p}{,}\PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1000}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{predicted}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0 7 3 5 9 4 7 2 5 6 1 2 7 0 0 6 2 2 4 4 3 4 0 2 7 9 1 4 4 4 9 4 7 7 3 1 4
+ 9 9 3 2 4 0 4 2 7 7 5 4 1 4 5 7 9 3 7 2 8 4 9 8 3 7 6 5 5 7 4 3 7 3 5 0 3
+ 5 0 0 7 0 5 9 3 3 4 7 9 4 8 6 4 0 0 8 2 9 4 6 4 9 0 0 3 1 6 5 1 0 1 9 2 2
+ 8 2 6 1 1 3 8 2 3 5 5 8 0 5 4 8 0 7 3 6 4 0 8 9 4 8 9 9 7 4 4 6 8 4 5 2 9
+ 9 4 0 5 8 5 2 2 7 6 4 8 3 0 7 6 5 6 1 0 9 3 5 6 3 6 3 3 0 0 1 4 1 1 9 3 8
+ 8 8 8 2 0 7 6 5 6 8 2 0 6 8 6 0 0 0 6 9 3 7 0 1 8 9 9 9 1 7 0 5 5 5 6 4 1
+ 4 8 6 6 8 3 1 0 5 2 2 6 8 4 2 1 0 4 6 9 9 6 1 7 2 3 4 0 5 5 7 4 8 1 1 7 8
+ 7 1 7 5 1 2 1 3 2 2 9 8 7 8 2 7 2 7 1 0 9 2 8 4 2 1 0 4 2 7 2 6 9 2 1 2 5
+ 4 7 1 6 3 4 4 7 0 0 9 9 9 9 9 9 1 1 9 5 7 3 8 4 8 6 6 3 1 8 6 8 4 3 6 2 3
+ 2 1 1 8 1 9 4 4 9 0 1 7 9 8 3 6 2 2 5 4 1 2 6 1 1 2 3 6 7 8 3 4 4 4 6 5 9
+ 4 6 6 1 3 2 6 5 7 9 4 7 6 8 5 6 1 9 1 9 7 5 7 8 8 5 1 0 7 2 6 9 1 0 7 3 2
+ 2 7 3 0 7 0 9 3 8 8 3 6 2 4 2 8 5 9 6 2 7 6 2 9 5 5 3 8 2 6 2 7 5 3 8 3 0
+ 3 0 4 0 2 8 5 1 0 7 7 3 2 7 6 8 8 3 7 4 9 5 0 4 1 1 2 1 3 6 5 0 5 1 2 6 1
+ 5 4 7 4 8 4 1 8 8 8 8 8 7 1 8 9 3 1 2 1 2 3 0 1 6 1 3 5 3 7 1 3 6 9 3 6 6
+ 2 3 2 0 0 1 9 6 5 9 5 9 4 4 2 5 4 9 0 0 6 2 5 7 2 1 7 0 3 0 6 2 1 6 9 9 5
+ 8 3 3 6 6 1 6 5 7 2 8 2 3 1 0 9 3 9 7 9 3 6 9 8 7 4 6 9 7 6 8 3 5 0 3 0 4
+ 4 3 1 4 2 6 5 6 1 7 5 6 6 3 2 9 2 3 1 1 1 2 3 3 2 0 9 4 9 8 3 2 0 0 9 5 1
+ 3 5 5 3 6 0 3 2 0 1 9 4 0 9 6 7 8 5 0 6 5 9 3 3 9 5 5 5 6 4 3 5 6 1 4 6 8
+ 7 1 8 6 5 2 4 6 1 1 8 2 5 7 0 6 4 3 0 9 7 0 6 5 7 7 7 5 5 4 3 5 0 3 2 5 9
+ 3 8 1 0 6 7 3 5 2 8 9 0 8 5 2 0 7 6 5 1 6 9 9 9 4 2 6 6 4 4 4 2 3 2 0 9 2
+ 5 3 9 3 3 6 0 0 2 3 9 5 5 6 6 4 7 0 0 9 4 7 9 7 5 4 1 0 8 1 1 6 9 2 9 7 8
+ 5 1 0 5 6 6 9 9 6 3 4 5 1 5 6 9 1 3 4 2]
+
+    \end{Verbatim}
+
+    Finally, in order to determine the accuracy of the classifier, we would
+like to compare the predictions with the ground truth (i.e. the true
+labels from the test data).
+
+\begin{itemize}
+\tightlist
+\item
+  Compute the fraction of the time on the test set where the predictions
+  of the nearest neighbor algorithm and labels disagree.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{accuracy}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{couter}\PY{o}{=}\PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{x}\PY{p}{,}\PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{predicted}\PY{p}{,}\PY{n}{Y}\PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{x} \PY{o}{!=} \PY{n}{y}\PY{p}{:}
+                     \PY{n}{couter} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n+nb}{round}\PY{p}{(}\PY{n}{couter}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}       
+         
+         \PY{n}{accuracy}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 0.009
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

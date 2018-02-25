@@ -1,0 +1,8 @@
+\BOOKMARK [1][-]{section.1}{Exercise Sheet 2: Timing, Numpy, Plotting}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Python Nearest Neighbor}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Testing and correctness}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Plotting and performance}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{Accelerating the distance computation \(25 P\)}{section.1}% 5
+\BOOKMARK [2][-]{subsection.1.5}{Accelerating the nearest neighbor search \(25 P\)}{section.1}% 6
+\BOOKMARK [2][-]{subsection.1.6}{Accelerating the processing of multiple test points \(25 P\)}{section.1}% 7
+\BOOKMARK [2][-]{subsection.1.7}{Application to real data \(25 P\)}{section.1}% 8
